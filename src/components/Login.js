@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
@@ -5,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
     let history = useHistory();
-
+    var authToken = props.authToken
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -17,14 +18,16 @@ const Login = (props) => {
         });
         const json = await response.json()
         console.log(json);
-        if (json.authtoken) {
+        
+        authToken=json.authtoken;
+        if (authToken) {
             // Save the auth token and redirect
-            localStorage.setItem('token', json.authtoken);
+            localStorage.setItem('token', authToken);
+            console.log(authToken);
             history.push("/");
-
         }
         else {
-            alert("Invalid credentials");
+            console.log("Invalid credentials");
         }
     }
 
@@ -33,7 +36,8 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className='container'>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

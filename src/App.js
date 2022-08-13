@@ -8,17 +8,17 @@ import Navbar from './components/Navbar';
 import { Home } from './components/Home';
 import About from './components/About';
 import NoteState from './context/notes/NoteState';
-import { Alert } from './components/Alert';
+// import { Alert } from './components/Alert';
 import Signup from './components/Signup';
 import Login from './components/Login';
 
 function App() {
   return (
     <>
-      <NoteState>
+      <NoteState authtoken="">
         <Router>
           <Navbar />
-          <Alert message="Notes App" />
+          {/* <Alert message="" /> */}
           <div className="container">
             <Switch>
               <Route exact path="/">
@@ -27,7 +27,7 @@ function App() {
               <Route exact path="/about">
                 <About />
               </Route>
-              <Route exact path="/login">
+              <Route exact path="/login" message="">
                 <Login />
               </Route>
               <Route exact path="/signup">

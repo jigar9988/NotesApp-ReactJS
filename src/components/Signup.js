@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 const Signup = (props) => {
-    const [userData, setuserData] = useState({name:"", email: "", password: "" })
+    const [credentials, setCredentials] = useState({name:"", email: "", password: "" })
     let history = useHistory();
-
+    const {name, email,password}=credentials;
     const handleSignup = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/auth/createuser", {
@@ -11,7 +11,7 @@ const Signup = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name:userData.name, email: userData.email, password: userData.password })
+            body: JSON.stringify({name, email, password })
         });
         const json = await response.json()
         console.log(json);
@@ -27,7 +27,7 @@ const Signup = (props) => {
     }
 
     const onChange = (e) => {
-        setuserData({ ...userData, [e.target.name]: e.target.value })
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 
     return (
